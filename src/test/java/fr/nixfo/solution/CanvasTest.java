@@ -1,5 +1,7 @@
-package fr.nixfo;
+package fr.nixfo.solution;
 
+import fr.nixfo.Position;
+import fr.nixfo.Shape;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -10,7 +12,7 @@ class CanvasTest {
 
     @Test
     void should_create_a_canvas() {
-        Canvas canvas = new Canvas("My canvas");
+        ɵCanvas canvas = new ɵCanvas("My canvas");
 
         canvas.addShape(new Shape("Triangle", List.of(new Position(1, 1), new Position(2, 2), new Position(1, 2))));
         canvas.addShape(new Shape("Segment", List.of(new Position(4, 2), new Position(3, 4))));
@@ -22,17 +24,17 @@ class CanvasTest {
 
     @Test
     void should_restore_canvas_from_last_memento() {
-        Canvas canvas = new Canvas("My canvas");
+        ɵCanvas canvas = new ɵCanvas("My canvas");
 
         canvas.addShape(new Shape("Triangle", List.of(new Position(1, 1), new Position(2, 2), new Position(1, 2))));
         canvas.addShape(new Shape("Segment", List.of(new Position(4, 2), new Position(3, 4))));
         canvas.addShape(new Shape("Square", List.of(new Position(1, 1), new Position(1, 2), new Position(2, 2), new Position(2, 1))));
 
-        // TODO create a memento here
+        ɵCanvasMemento memento = canvas.saveToMemento();
 
         canvas.modifyName("My modified canvas");
 
-        // TODO restore from the memento here
+        canvas.restoreFromMemento(memento);
 
         assertEquals("My canvas has 3 shapes.", canvas.display());
     }
@@ -40,19 +42,19 @@ class CanvasTest {
 
     @Test
     void should_restore_canvas_from_first_memento() {
-        Canvas canvas = new Canvas("My canvas");
+        ɵCanvas canvas = new ɵCanvas("My canvas");
 
-        // TODO create a memento here
+        ɵCanvasMemento memento = canvas.saveToMemento();
 
         canvas.addShape(new Shape("Triangle", List.of(new Position(1, 1), new Position(2, 2), new Position(1, 2))));
         canvas.addShape(new Shape("Segment", List.of(new Position(4, 2), new Position(3, 4))));
         canvas.addShape(new Shape("Square", List.of(new Position(1, 1), new Position(1, 2), new Position(2, 2), new Position(2, 1))));
 
-        // TODO create a memento here
+        ɵCanvasMemento mementoUnused = canvas.saveToMemento();
 
         canvas.modifyName("My modified canvas");
 
-        // TODO restore from the memento here
+        canvas.restoreFromMemento(memento);
 
         assertEquals("My canvas has 0 shapes.", canvas.display());
     }

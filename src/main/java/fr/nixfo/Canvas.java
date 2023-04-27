@@ -20,11 +20,7 @@ public class Canvas {
         this.shapes.add(shape);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public List<Shape> getShapes() {
-        return shapes;
+    public String display() {
+        return this.name + " has " + this.shapes.size() + " shapes.";
     }
 }
